@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 
+from db.database import create_db_and_tables
+
 app = FastAPI()
 
-@app.get("/")
-def index():
-    return "Hello mate"
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
